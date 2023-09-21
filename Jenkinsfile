@@ -4,50 +4,43 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                // Use a build automation tool like Maven or Gradle
-                sh 'mvn clean package'  // Replace with your build command
+                sh 'mvn clean package'
             }
         }
         
         stage('Unit and Integration Tests') {
             steps {
-                // Run unit and integration tests using appropriate testing frameworks
-                sh 'mvn test'  // Replace with your test command
+               sh 'mvn test'
             }
         }
         
         stage('Code Analysis') {
             steps {
-                // Integrate a code analysis tool like SonarQube or Checkstyle
-                sh 'sonar-scanner'  // Replace with your code analysis tool command
+               sh 'npm run lint'
             }
         }
         
         stage('Security Scan') {
             steps {
-                // Perform a security scan using a tool like OWASP ZAP or SonarQube
-                sh 'security-scan-command'  // Replace with your security scan tool command
+                sh 'owasp-zap -target http://your-app-url'
             }
         }
         
         stage('Deploy to Staging') {
             steps {
-                // Deploy the application to a staging environment, e.g., AWS EC2
-                sh 'deploy-to-staging-command'  // Replace with your deployment command
+               sh 'aws ecs update-service --cluster your-cluster-name --service your-service-name --force-new-deployment'
             }
         }
         
         stage('Integration Tests on Staging') {
             steps {
-                // Run integration tests on the staging environment
-                sh 'integration-tests-command'  // Replace with your integration test command
+                sh 'newman run your-api-tests.postman_collection.json'
             }
         }
         
         stage('Deploy to Production') {
             steps {
-                // Deploy the application to a production environment, e.g., AWS EC2
-                sh 'deploy-to-production-command'  // Replace with your deployment command
+                sh 'aws ecs update-service --cluster your-cluster-name --service your-service-name --force-new-deployment'
             }
         }
     }

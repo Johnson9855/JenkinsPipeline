@@ -4,26 +4,25 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'npm install'
-                sh 'npm run build'
+                sh 'mvn package'
             }
         }
         
         stage('Unit and Integration Tests') {
             steps {
-               sh 'npm test'
+               sh 'mvn test'
             }
         }
         
         stage('Code Analysis') {
             steps {
-               sh 'npm run lint'
+               sh 'sonar-scanner'
             }
         }
         
         stage('Security Scan') {
             steps {
-                sh 'owasp-zap -target http://your-app-url'
+                sh 'sonar-scanner -Dsonar.qualitygate.wait=true'
             }
         }
         

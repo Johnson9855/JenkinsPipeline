@@ -4,13 +4,14 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                sh 'npm install'
+                sh 'npm run build'
             }
         }
         
         stage('Unit and Integration Tests') {
             steps {
-               sh 'mvn test'
+               sh 'npm test'
             }
         }
         

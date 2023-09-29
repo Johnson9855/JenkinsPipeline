@@ -30,25 +30,32 @@ pipeline {
             }
         }  
         stage("Code Analysis") {
-            steps {
-               echo "Check quality of the code"
-                echo "SonarQube was the tool used for this"
-            }
+    steps {
+        echo "Check quality of the code"
+        echo "SonarQube was the tool used for this"
+    }
+    post {
+        always {
+            mail to: "s223565746@deakin.edu.au",
+                 subject: "Code Analysis status: ${currentBuild.result}",
+                 body: "The code analysis stage has completed. Status: ${currentBuild.result}"
         }
-        stage("Security Scan") {
-            steps {
-                echo "Perform a security scan on the code using QWASP ZAP."
-            }
-            post {
-                always {
-                    script {
-                        mail to:"s223565746@deakin.edu.au"
-                        subject:"Security scan status: ${currentBuild.result}"
-                        body:"The security scan stage has completed. Status: ${currentBuild.result}"
-                    }
-                }
-            }
+    }
+}
+
+stage("Security Scan") {
+    steps {
+        echo "Perform a security scan on the code using QWASP ZAP."
+    }
+    post {
+        always {
+            mail to: "s223565746@deakin.edu.au",
+                 subject: "Security Scan status: ${currentBuild.result}",
+                 body: "The security scan stage has completed. Status: ${currentBuild.result}"
         }
+    }
+}
+
         stage("Deploy") {
             steps {
                echo "Deploy the application to a staging server (e.g., AWS EC2 instance) using Jenkins."

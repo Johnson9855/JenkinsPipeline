@@ -21,8 +21,8 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "s223565746@deakin.edu.au",
-                        subject: "Test status: ${currentBuild.result}",
+                    mail to:"s223565746@deakin.edu.au",
+                        subject:"Test status: ${currentBuild.result}",
                         body:"The test stage has completed. Status: ${currentBuild.result}"
                 }
             }
@@ -36,13 +36,13 @@ pipeline {
         
         stage("Security Scan") {
             steps {
-                echo " Perform a security scan on the code using QWASP ZAP."
+                echo "Perform a security scan on the code using QWASP ZAP."
             }
             post {
                 always {
-                    mail to: "s223565746@deakin.edu.au"
-                    subject: "Security scan status: ${currentBuild.result}"
-                    body: "The security scan stage has completed. Status: ${currentBuild.result}"
+                    mail to:"s223565746@deakin.edu.au"
+                    subject:"Security scan status: ${currentBuild.result}"
+                    body:"The security scan stage has completed. Status: ${currentBuild.result}"
                 }
             }
         }
@@ -66,9 +66,9 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "s223565746@deakin.edu.au"
-                    subject: "Security scan status: ${currentBuild.result}"
-                    body: "The security scan stage has completed. Status: ${currentBuild.result}"
+                    mail to:"s223565746@deakin.edu.au"
+                    subject:"Security scan status: ${currentBuild.result}"
+                    body:"The security scan stage has completed. Status: ${currentBuild.result}"
                 }
             }
         }

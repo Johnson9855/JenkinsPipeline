@@ -5,7 +5,6 @@ pipeline {
         TESTING_ENVIRONMENT = "General testing"
         PRODUCTION_ENVIRONMENT = "Johnson"
     }
-    
     stages {
         stage("Build") {
             steps {
@@ -14,14 +13,12 @@ pipeline {
                 echo "Code built using a build automation tool called Maven."
             }
         }
-        
         stage("Unit and Integration Tests") {
             steps {
                echo "Unit tests."
                 echo "Integration tests."
                 echo "pytest was the tool use for this."
             }
-        }
             post {
                 always {
                     mail to: "s223565746@deakin.edu.au",

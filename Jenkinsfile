@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment {
         DIRECTORY_PATH = "/path/to/code"
-        TESTING_ENVIRONMENT = "testing-environment"
-        PRODUCTION_ENVIRONMENT = "your-name-production"
+        TESTING_ENVIRONMENT = "General testing"
+        PRODUCTION_ENVIRONMENT = "Johnson"
     }
     
     stages {

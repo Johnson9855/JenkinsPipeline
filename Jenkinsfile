@@ -1,15 +1,9 @@
 pipeline {
     agent any
-    environment {
-        DIRECTORY_PATH = "/Users/Johnson\Chin/Documents/Code/JenkinsPipeline
-        TESTING_ENVIRONMENT = "General Testing"
-        PRODUCTION ENVIRONMENT = "Johnson"
-    }
     
     stages {
         stage("Build") {
             steps {
-                echo "Fetch the source code from the directory path: "$DIRECTORY_PATH"
                 echo "Compile the code and generate any necessary artifacts."
                 echo "Code built using a build automation tool called Maven."
             }

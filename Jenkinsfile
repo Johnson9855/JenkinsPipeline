@@ -68,19 +68,22 @@ stage("Security Scan") {
             }
         }
         stage("Deploy to Production") {
-            steps {
-                echo "The product $PRODUCTION_ENVIRONMENT is ready for production"
-                echo "deploy the application to a production server (e.g., AWS EC2 instance) using Jenkins."
-            }
-            post {
-                always {
-                    script {
-                        mail to:"s223565746@deakin.edu.au"
-                        subject:"Security scan status: ${currentBuild.result}"
-                        body:"The security scan stage has completed. Status: ${currentBuild.result}"
-                    }
-                }
+    steps {
+        echo "The product Johnson is ready for production"
+        echo "deploy the application to a production server (e.g., AWS EC2 instance) using Jenkins."
+    }
+    post {
+        always {
+            script {
+                // Add the following lines to send an email
+                emailext(
+                    to: "s223565746@deakin.edu.au",
+                    subject: "Deployment to Production status: ${currentBuild.result}",
+                    body: "The deployment to production has completed. Status: ${currentBuild.result}",
+                    mimeType: 'text/html'
+                )
             }
         }
     }
 }
+

@@ -1,9 +1,15 @@
 pipeline {
     agent any
+    environment {
+        DIRECTORY_PATH = "/path/to/code"
+        TESTING_ENVIRONMENT = "testing-environment"
+        PRODUCTION_ENVIRONMENT = "your-name-production"
+    }
     
     stages {
         stage("Build") {
             steps {
+                echo "Fetch the source code from ${env.DIRECTORY_PATH}
                 echo "Compile the code and generate any necessary artifacts."
                 echo "Code built using a build automation tool called Maven."
             }

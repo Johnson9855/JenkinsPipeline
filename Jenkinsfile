@@ -21,9 +21,11 @@ pipeline {
             }
             post {
                 always {
+                    script {
                         mail to:"s223565746@deakin.edu.au",
                         subject:"Test status: ${currentBuild.result}",
                         body:"The test stage has completed. Status: ${currentBuild.result}"
+                    }
                 }
             }
         }  
@@ -39,9 +41,11 @@ pipeline {
             }
             post {
                 always {
-                    mail to:"s223565746@deakin.edu.au"
-                    subject:"Security scan status: ${currentBuild.result}"
-                    body:"The security scan stage has completed. Status: ${currentBuild.result}"
+                    script {
+                        mail to:"s223565746@deakin.edu.au"
+                        subject:"Security scan status: ${currentBuild.result}"
+                        body:"The security scan stage has completed. Status: ${currentBuild.result}"
+                    }
                 }
             }
         }
@@ -63,9 +67,11 @@ pipeline {
             }
             post {
                 always {
-                    mail to:"s223565746@deakin.edu.au"
-                    subject:"Security scan status: ${currentBuild.result}"
-                    body:"The security scan stage has completed. Status: ${currentBuild.result}"
+                    script {
+                        mail to:"s223565746@deakin.edu.au"
+                        subject:"Security scan status: ${currentBuild.result}"
+                        body:"The security scan stage has completed. Status: ${currentBuild.result}"
+                    }
                 }
             }
         }

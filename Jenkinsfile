@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DIRECTORY_PATH = "/c/Users/Johnson\Chin/Documents/code/JenkinsPipeline"
+        DIRECTORY_PATH = "/c/Users/Johnson Chin/Documents/code/JenkinsPipeline"
         TESTING_ENVIRONMENT = "General testing"
         PRODUCTION_ENVIRONMENT = "Johnson"
     }

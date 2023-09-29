@@ -1,64 +1,82 @@
 pipeline {
     agent any
+    environment {
+        DIRECTORY_PATH = "/Users/Johnson\Chin/Documents/Code/JenkinsPipeline
+        TESTING_ENVIRONMENT = "General Testing"
+        PRODUCTION ENVIRONMENT = "Johnson"
+    }
     
     stages {
-        stage('Build') {
+        stage("Build") {
             steps {
-                sh 'mvn package'
+                echo "Fetch the source code from the directory path: "$DIRECTORY_PATH"
+                echo "Compile the code and generate any necessary artifacts."
+                echo "Code built using a build automation tool called Maven."
             }
         }
         
-        stage('Unit and Integration Tests') {
+        stage("Unit and Integration Tests") {
             steps {
-               sh 'mvn test'
+               echo "Unit tests."
+                echo "Integration tests."
+                echo "pytest was the tool use for this."
             }
         }
-        
-        stage('Code Analysis') {
-            steps {
-               sh 'sonar-scanner'
+            post {
+                always {
+                    mail to: "s223565746@deakin.edu.au",
+                        subject: "Test status: ${currentBuild.result}",
+                        body:"The test stage has completed. Status: ${currentBuild.result}"
+                }
             }
-        }
-        
-        stage('Security Scan') {
-            steps {
-                sh 'sonar-scanner -Dsonar.qualitygate.wait=true'
-            }
-        }
-        
-        stage('Deploy to Staging') {
-            steps {
-               sh 'aws ecs update-service --cluster your-cluster-name --service your-service-name --force-new-deployment'
-            }
-        }
-        
-        stage('Integration Tests on Staging') {
-            steps {
-                sh 'newman run your-api-tests.postman_collection.json'
-            }
-        }
-        
-        stage('Deploy to Production') {
-            steps {
-                sh 'aws ecs update-service --cluster your-cluster-name --service your-service-name --force-new-deployment'
-            }
-        }
     }
-    
-    post {
-        success {
-            emailext (
-                subject: "Pipeline Successful",
-                body: "Your Jenkins pipeline has completed successfully.",
-                to: "johnson9855@gmail.com"
-            )
+        
+        stage("Code Analysis") {
+            steps {
+               echo "Check quality of the code"
+                echo "SonarQube was the tool used for this"
+            }
         }
-        failure {
-            emailext (
-                subject: "Pipeline Failed",
-                body: "Your Jenkins pipeline has failed. Please check the logs for details.",
-                to: "johnson9855@gmail.com"
-            )
+        
+        stage("Security Scan") {
+            steps {
+                echo " Perform a security scan on the code using QWASP ZAP."
+            }
+            post {
+                always {
+                    mail to: "s223565746@deakin.edu.au"
+                    subject: "Security scan status: ${currentBuild.result}"
+                    body: "The security scan stage has completed. Status: ${currentBuild.result}"
+                }
+            }
         }
-    }
+        
+        stage("Deploy") {
+            steps {
+               echo "Deploy the application to a staging server (e.g., AWS EC2 instance) using Jenkins."
+            }
+        }
+        
+        stage("Integration Tests on Staging") {
+            steps {
+                echo "run integration tests on the staging environment to ensure the application functions as expected in a production-like environment"
+                sleep 10
+            }
+        }
+        
+        stage("Deploy to Production") {
+            steps {
+                echo "The product $PRODUCTION_ENVIRONMENT is ready for production"
+                echo "deploy the application to a production server (e.g., AWS EC2 instance) using Jenkins."
+            }
+            post {
+                always {
+                    mail to: "s223565746@deakin.edu.au"
+                    subject: "Security scan status: ${currentBuild.result}"
+                    body: "The security scan stage has completed. Status: ${currentBuild.result}"
+                }
+            }
+        }
+}
+}
 }

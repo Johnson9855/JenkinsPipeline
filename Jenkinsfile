@@ -26,8 +26,7 @@ pipeline {
                         body:"The test stage has completed. Status: ${currentBuild.result}"
                 }
             }
-    }
-        
+    }  
         stage("Code Analysis") {
             steps {
                echo "Check quality of the code"
@@ -47,7 +46,6 @@ pipeline {
                 }
             }
         }
-        
         stage("Deploy") {
             steps {
                echo "Deploy the application to a staging server (e.g., AWS EC2 instance) using Jenkins."
@@ -74,4 +72,5 @@ pipeline {
                 }
             }
         }
+}
 }

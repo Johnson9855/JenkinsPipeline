@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage("Build") {
             steps {
-                echo "Fetch the source code from ${env.DIRECTORY_PATH}
+                echo "Fetch the source code from ${env.DIRECTORY_PATH}"
                 echo "Compile the code and generate any necessary artifacts."
                 echo "Code built using a build automation tool called Maven."
             }
